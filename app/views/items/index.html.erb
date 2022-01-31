@@ -1,0 +1,43 @@
+<div class="container my-5">
+ <div class="row">
+
+
+    <div class="col-9">
+      <div class="row">
+        <h2 class="red-border px-3">
+          <% if params[:genre_id] %>
+            <%= @genre.name %>
+          <% else %>
+            商品一覧
+          <% end %>
+        </h2>
+      </div>
+
+<!-- 販売件数 -->
+      <div class="row my-3 ml-1">
+        <strong class="brown-border">
+          全
+          <% if params[:genre_id] %>
+    	     <%= @items.order(created_at: :desc).where(is_active: "販売中").count %>
+          <% else %>
+    		    <%= Item.where(is_active: "販売中").count %>
+          <% end %>
+          件
+        </strong>
+      </div>
+
+
+	    <div class="row">
+	    	<% @items.each do |item| %>
+          <div class="col-3 mt-3">
+		        <%= link_to item_path(item) do %>
+		        <% end %><br>
+		        <span class="text-muted"><%= link_to item.name, item_path(item) %></span><br>
+		        <span class="ml-auto"><%= (item.price * 1.1).floor %>円</span><br>
+          </div>
+        <% end %>
+	    </div>
+
+
+   </div>
+  </div>

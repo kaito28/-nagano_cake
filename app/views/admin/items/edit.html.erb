@@ -1,0 +1,49 @@
+<div class="container my-5">
+  <div class="row">
+    <h2>商品編集</h2>
+  </div>
+
+<%= form_with model: @item, url: admin_item_path, local: true do |f| %>
+
+
+    <div class="center">
+     <div class="col-sm-5">
+      <div class="form-group row">
+        <%= f.label :商品画像, class: "col-sm-4" %>
+       <%= f.attachment_field :image, class: "form col-sm-8 "%>
+      </div>
+
+        <div class="form-group row">
+          <%= f.label :商品名, class: "col-sm-4" %>
+          <%= f.text_field :name, class: "form-control col-sm-8" %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :商品説明, class: "col-sm-4" %>
+          <%= f.text_area :introduction, class: "form-control col-sm-8" %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :ジャンル, class: "col-sm-4" %>
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "form-control col-sm-8" %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :税抜き価格, class: "col-sm-4" %>
+          <%= f.text_field :price, class: "form-control col-sm-7" %>
+          <span class="mt-auto ml-3">円</span>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :販売ステータス, class: "col-sm-4" %>
+          <%= f.select :is_active, [["販売中","販売中"], ["販売停止中","販売停止中"]], class: "form-control col-sm-8" %>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-end">
+        <%= f.submit :変更を保存, class: "btn btn-success" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
