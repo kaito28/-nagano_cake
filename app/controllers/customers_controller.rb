@@ -21,15 +21,13 @@ class CustomersController < ApplicationController
     end
   end
 
-    def withdrow #退会画面を表示する
-       @customer = Customer.find(params[:id])
+    def withdraw #退会画面を表示する
+       @customer = current_customer
     end
 
     def switch
        @customer = Customer.find(params[:id])
-       if @customer.update(is_enabled: false)
-          sign_out current_customer
-       end
+       sign_out current_customer
        redirect_to root_path
     end
 
@@ -37,7 +35,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-  	  params.require(:customer).permit(:is_enabled, :last_name, :first_name, :last_name_kana, :first_name_kana,
+  	  params.require(:customer).permit(:is_active, :last_name, :first_name, :last_name_kana, :first_name_kana,
   	                                   :telephone_number, :email, :password, :postal_code, :address)
   end
 

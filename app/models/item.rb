@@ -6,6 +6,7 @@ class Item < ApplicationRecord
 	validates :is_active, presence: true
 	has_many :cart_items, dependent: :destroy
 	belongs_to :genre
+	has_many :order_details
 	attachment :image
 
 end

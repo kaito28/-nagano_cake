@@ -24,12 +24,12 @@ Rails.application.routes.draw do
 #customers
   root 'homes#top'
   get '/thanks' => 'homes#thanks'
-   get "/homes/about" => "homes#about"
+  get "/homes/about" => "homes#about"
   get '/orders/confirm' => 'orders#confirm', as: 'orders_confirm' #購入確認画面への遷移
-  get '/orders/create_order' => 'orders#create_order' #購入確定のアクション
+  post '/orders/create_order' => 'orders#create_order'  #購入確定のアクション
   post '/orders/create_address' => 'orders#create_address' #情報入力画面での配送先登録用のアクション
   delete '/cart_items' => 'cart_items#destroy_all' #カートアイテムを全て削除
-  get '/customers/:id/withdraw' => 'customers#withdraw', as: 'withdraw_customer' #退会画面への遷移
+  get '/customers/:id/withdraw' => 'customers#withdraw', as: 'withdraw_' #退会画面への遷移
   patch '/customers/:id/withdraw' => 'customers#switch', as: 'withdraw_switch_customer' #会員ステータスの切替
 
   resources :customers, only: [:show, :edit, :update]

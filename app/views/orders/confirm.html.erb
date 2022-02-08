@@ -1,7 +1,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="offset-1">
-      <h2 class="red-border px-3">ご注文内容</h2>
+      <h2 class="red-border px-3">注文情報確認</h2>
     </div>
   </div>
 
@@ -9,30 +9,32 @@
     <div class="offset-1 col-7">
 
 <!-- 注文商品の情報 -->
-      <table class="table table-borderless table-sm ">
+      <table class="table table-border border-dark table-sm ">
         <thead>
-          <tr class="red-border">
-            <th>商品</th>
-            <th>単価(税込)</th>
-            <th>数量</th>
-            <th>小計</th>
+          <tr class="border border-dark">
+            <th class="border border-dark bg-light">商品</th>
+            <th class="border border-dark bg-light">単価(税込)</th>
+            <th class="border border-dark bg-light">数量</th>
+            <th class="border border-dark bg-light">小計</th>
           </tr>
         </thead>
 
         <tbody>
+          <% @total_payment=0 %>
           <% current_customer.cart_items.each do |cart| %>
-            <tr class="brown-border">
-              <td>
+            <tr class="border border-dark">
+              <td class="border border-dark">
                 <%= attachment_image_tag cart.item, :image, :size => '50x50',fallback: "no_image.jpg" %>
                 <span> </span>
                 <%= cart.item.name %>
               </td>
 
-              <td class="align-middle"><%= (cart.item.price * 1.1).floor %></td>
+              <td class="align-middle border border-dark"><%= (cart.item.price * 1.1).floor %></td>
 
-              <td class="align-middle"><%= cart.amount %></td>
+              <td class="align-middle border border-dark"><%= cart.amount %></td>
 
-              <td class="align-middle"><%= (cart.item.price * 1.1).floor * cart.amount %></td>
+              <td class="align-middle border border-dark"><%= (cart.item.price * 1.1).floor * cart.amount %></td>
+              <% @total_payment += (cart.item.price * 1.1).floor * cart.amount %>
             </tr>
           <% end %>
         </tbody>
@@ -41,23 +43,22 @@
     </div>
 
 <!-- 金額の情報 -->
-    <div class="col-2 d-flex">
-
-      <table class="table table-sm table-borderless align-self-end">
+    <div class="col-3 d-flex">
+      <table class="table table-border border-dark table-sm">
         <tbody>
-          <tr class="brown-border">
-            <td>送料</td>
-            <td>800</td>
+          <tr class="brown-border border-dark">
+            <td class="border border-dark bg-light">送料</td>
+            <td class="border border-dark">800</td>
           </tr>
 
-          <tr class="brown-border">
-            <td>商品合計</td>
-            <td><%= @total_payment %></td>
+          <tr class="border border-dark">
+            <td class="border border-dark bg-light">商品合計</td>
+            <td class="brown-border border-dark"><%= @total_payment %></td>
           </tr>
 
-          <tr class="brown-border">
-            <td>請求金額</td>
-            <td><%= @total_payment + 800 %></td>
+          <tr class="border border-dark">
+            <td class="border border-dark bg-light">請求金額</td>
+            <td class="brown-border border-dark"><%= @total_payment + 800 %></td>
           </tr>
 
         </tbody>
@@ -68,31 +69,50 @@
 
 
 <!-- その他情報 -->
-  <div class="row mt-5">
-    <div class="offset-2 col-6">
+  <div class="row mt-4">
+    <div class="col-6">
       <div class="row mt-3">
         <strong class="red-border px-3 mr-3">お支払い方法</strong>
-        <span class="brown-border px-3"><%= session[:payment] %></span>
+        <span class="brown-border px-3"><%= @order.payment_method %></span>
       </div>
 
       <div class="row mt-3">
         <strong class="red-border px-3 mr-3">　お届け先　</strong>
         <span class="brown-border px-3">
 
-          <% if  session[:address]%>
-           <%= "〒" + @address.postal_code + "  " + @address.address + "  " + @address.name  %><span>様</span>
+
+           <%=@order.name%><span>様</span>
 
 
-          <% else %>
-            <%= session[:address] %><span>様</span>
-          <% end %>
         </span>
       </div>
     </div>
 
-    <div class="col-3">
-      <%=link_to "購入を確定する", orders_create_order_path, class: "btn btn-lg btn-success ml-auto" %>
-    </div>
 
   </div>
 </div>
+
+<div class="container">
+<div="row align-middle">
+    <div class="mx-auto" style="width: 200px;">
+        <%= form_with model: @order, url: orders_create_order_path, local: true do |f| %>
+        <%= f.hidden_field :name, :value => @order.name %>
+        <%= f.hidden_field :postal_code, :value => @order.postal_code%>
+        <%= f.hidden_field :shipping_cost, :value => 800%>
+        <%= f.hidden_field :address, :value => @order.address%>
+        <%= f.hidden_field :payment_method, :value => @order.payment_method%>
+        <%= f.hidden_field :total_payment, :value => @total_payment%>
+        <%= f.hidden_field :customer_id, :value => current_customer.id%>
+
+        <%#= f.fields_for: @order_details do |order_detail_fileds| %>
+         <%#= f.hidden_field :item_id %>
+         <%#= f.hidden_field :order_id%>
+         <%#= f.hidden_field :amount %>
+         <%#= f.hidden_field :maiking_status %>
+
+
+      <%= f.submit "購入を確定する", class: "btn btn-lg btn-success " %>
+      <% end %>
+      <% #end %>
+    </div>
+    </div>

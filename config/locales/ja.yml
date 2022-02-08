@@ -1,0 +1,6 @@
+ja:
+  enums:
+    item:
+      is_active:
+        credit_card: 'クレジットカード'
+        transfer: '銀行振込'

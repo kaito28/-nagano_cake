@@ -5,35 +5,26 @@
   </div>
 
   <div class="row mt-5">
-    <div class="offset-sm-1 col-sm-4">
-
-      <div class="form-wrap border rounded p-5">
-        <div class="row d-flex justify-content-center">
-          <strong>新規ジャンル登録</strong>
-        </div>
-
-
-
-
+    <div class="">
+   <strong>ジャンル名</strong>
+     </div>
 <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-        <div class="form-group">
+        <div class="col-lg-9">
           <%= f.text_field :name, class: "form-control" %>
         </div>
 
-
-        <div class="row">
-          <%= f.submit "新規登録", class: "btn btn-primary mt-3 mx-auto" %>
+        <div class="col-lg-3">
+          <%= f.submit "新規登録", class: "btn btn-success mt-3 mx-auto" %>
         </div>
       <% end %>
     </div>
     </div>
 
     <div class="offset-sm-1 col-sm-5">
-      <table class="table table-hover text-center">
+      <table class="table table-hover text-center ">
         <thead>
-          <tr>
+          <tr class="bg-light">
             <th>ジャンル</th>
-            <th>ステータス</th>
             <th colspan="1"></th>
           </tr>
         </thead>
@@ -43,12 +34,12 @@
             <tr>
               <td><%= genre.name %></td>
 
-              <td><%= link_to "編集する", edit_admin_genre_path(genre), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to "編集する", edit_admin_genre_path(genre), class: "btn btn-success btn-sm" %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
-
+</div>
   </div>
 </div>

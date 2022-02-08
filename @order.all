@@ -1,0 +1,27 @@
+
+[1mFrom:[0m /home/ec2-user/environment/nagano_cake/app/controllers/orders_controller.rb:59 OrdersController#create_order:
+
+    [1;34m55[0m: [32mdef[0m [1;34mcreate_order[0m
+    [1;34m56[0m:   [1;34m# オーダーの保存[0m
+    [1;34m57[0m:   @order = [1;34;4mOrder[0m.new(order_params)
+    [1;34m58[0m:   binding.pry
+ => [1;34m59[0m:   @order.save
+    [1;34m60[0m: 
+    [1;34m61[0m: 
+    [1;34m62[0m:   [1;34m# オーダー商品ごとの詳細の保存[0m
+    [1;34m63[0m:   current_customer.cart_items.each [32mdo[0m |cart|
+    [1;34m64[0m:     @order_detail = [1;34;4mOrderDetail[0m.new
+    [1;34m65[0m:     @order_detail.order_id = @order.id
+    [1;34m66[0m:     @order_detail.item_name = cart.item.name
+    [1;34m67[0m:     @order_detail.item_price = cart.item.price
+    [1;34m68[0m:     @order_detail.amount = cart.amount
+    [1;34m69[0m:     @order_detail.is_active = [1;34m0[0m
+    [1;34m70[0m:     @order_detail.save
+    [1;34m71[0m: 
+    [1;34m72[0m:   [32mend[0m
+    [1;34m73[0m:   current_customer.cart_items.destroy_all
+    [1;34m74[0m:   session.delete([33m:address[0m)
+    [1;34m75[0m:   session.delete([33m:payment_method[0m)
+    [1;34m76[0m:   redirect_to thanks_path
+    [1;34m77[0m: [32mend[0m
+
