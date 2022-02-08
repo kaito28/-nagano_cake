@@ -35,7 +35,13 @@
 
           <tr>
             <td>販売ステータス</td>
-            <td><%= @item.is_active %></td>
+            <td><% if @item.is_active==0 %>
+         　販売中
+         　<% else %>
+         　販売停止中
+
+　　　　　 <% end %>
+            </td>
           </tr>
         </tbody>
 
@@ -45,7 +51,7 @@
 
   <div class="row">
     <div class="offset-sm-9 col-sm-2">
-      <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-primary" %>
+      <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
     </div>
   </div>
 </div>

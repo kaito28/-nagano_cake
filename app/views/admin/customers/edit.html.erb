@@ -1,48 +1,59 @@
 <div class="container my-5">
   <div class="row">
-    <h2>会員情報量編集</h2>
+    <div class="offset">
+      <h2 class="border px-3 pb-1 bg-light"><%=@customer.last_name + @customer.first_name%>さんの会員情報編集</h2>
+    </div>
   </div>
 
-    <div class="row mt-3 flex-column align-items-center">
+    <div class="row mt-3">
+     <div class="offset-3 col-6">
 
-      <%= form_with model :@admin, url: admin_customers_path, local :true do |f| %>
+      <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch, local: true do |f| %>
 
-        <div class="form-group row">
+        <div class="form-group">
+        <div class="row">
           <%= f.label :会員id, class: "col-sm-4" %>
           <%= f.label @customer.id, class: "col-sm-8" %>
         </div>
-
-        <div class="form-group row">
-          <%= f.label :氏名, class: "col-sm-4" %>
-          <%= f.text_field :last_name, class: "form-control col-sm-4" %>
-          <%= f.text_field :first_name, class: "form-control col-sm-4" %>
         </div>
 
-        <div class="form-group row">
-          <%= f.label :フリガナ, class: "col-sm-4" %>
-          <%= f.text_field :last_name_kana, class: "form-control col-sm-4" %>
-          <%= f.text_field :first_name_kana, class: "form-control col-sm-4" %>
+          <div class="form-group">
+        <%= f.label :氏名, class: " px-3" %>
+        <div class="row">
+          <%= f.text_field :last_name, class: "border border-dark form-control  col-4"%>
+          <%= f.text_field :first_name, class: "border border-dark form-control offset-1 col-4"%>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <%= f.label :郵便番号, class: "col-sm-4" %>
-          <%= f.text_field :postal_code, class: "form-control col-sm-8" %>
+      <div class="form-group">
+        <%= f.label :フリガナ, class: "brown-border px-3" %>
+        <div class="row">
+          <%= f.text_field :last_name_kana, class: "border border-dark form-control  col-4"%>
+          <%= f.text_field :first_name_kana, class: "border border-dark form-control  offset-1 col-4"%>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <%= f.label :住所, class: "col-sm-4" %>
-          <%= f.text_field :address, class: "form-control col-sm-8" %>
-        </div>
+      <div class="form-group">
+        <%= f.label :郵便番号, class: "brown-border px-3" %>
+        <%= f.text_field :postal_code, class: "border border-dark form-control offset-1 col-8"%>
+      </div>
 
-        <div class="form-group row">
-          <%= f.label :電話番号, class: "col-sm-4" %>
-          <%= f.text_field :telephone_number, class: "form-control col-sm-8" %>
-        </div>
+      <div class="form-group">
+        <%= f.label :住所, class: "brown-border px-3" %>
+        <%= f.text_field :address, class: "border border-dark form-control offset-1 col-8"%>
+      </div>
 
-        <div class="form-group row">
-          <%= f.label :メールアドレス, class: "col-sm-4" %>
-          <%= f.email_field :email, class: "form-control col-sm-8" %>
-        </div>
+      <div class="form-group">
+        <%= f.label :電話番号, class: "brown-border px-3" %>
+        <%= f.text_field :telephone_number, class: "border border-dark form-control offset-1 col-8"%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :メールアドレス, class: "brown-border px-3" %>
+        <%= f.email_field :email, class: "border border-dark form-control offset-1 col-8"%>
+      </div>
+
+
 
         <div class="row">
           <%= f.label :会員ステータス, class: "ml-3" %>
@@ -57,8 +68,9 @@
         <div class="row">
           <%= f.submit "変更を保存", class: "btn btn-primary mt-3 mx-auto" %>
         </div>
-
-      <% end %>
-
   </div>
+    <% end %>
+
+</div>
+</div>
 </div>

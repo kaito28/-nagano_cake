@@ -1,37 +1,39 @@
-
-<div id="carouselExampleIndicators" class="carousel carousel-fade slide" data-ride="carousel">
-
-  <!-- スライドさせる画像の設定 -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag 'no_image.jpg', class: 'd-block w-100' %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag 'no_image.jpg', class: 'd-block w-100' %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag 'no_image.jpg', class: 'd-block w-100' %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag 'no_image.jpg', class: 'd-block w-100' %>
-    </div>
-  </div><!-- /.carousel-inner -->
-
-  <!-- スライドコントロールの設定 -->
-  <!-- "<"のデザイン -->
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  </a>
-  <!-- ">"のデザイン -->
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  </a>
-</div><!-- /.carousel -->
-
 <div class="container my-5">
-  <div class="row">
-      <h3 class="red-border px-3 pb-1">新着商品</h3>
-  </div>
+ <div class="row offset-4">
+   ようこそ、ながのCAKEへ！<br>
+   このサイトは、ケーキ販売のECサイトいなります。<br>
+   会員でない方も商品の閲覧はできますが、<br>
+   購入には会員登録が必要になります。<br>
+ </div>
 
 
+    <div class="col-9">
+      <div class="row mt-5">
+          <% if params[:genre_id] %>
+            <%= @genre.name %>
+          <% else %>
+          <h2 class="row offset-1">新着商品
+          <% end %>
+        </h2>
+      </div>
+
+
+	    <div class="row">
+	    	<% @items.each do |item| %>
+          <div class="col-3 mt-3">
+		        <%= link_to item_path(item) do %>
+		         <%= attachment_image_tag item, :image, size: "150x150", format: 'jpeg', fallback: "no_image.jpg", class: 'rounded' %>
+		        <% end %><br>
+		        <span class="text-muted"><%= link_to item.name, item_path(item) %></span><br>
+		        <span class="ml-auto"><%= (item.price * 1.1).floor %>円</span><br>
+          </div>
+        <% end %>
+	    </div>
+
+<div class="row pull-right ">
+<div class="col-12 text-right">
+  <%= link_to"全ての商品を見る", items_path, class: "nav-link pull-right" %>
 </div>
+
+   </div>
+  </div>

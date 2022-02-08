@@ -7,14 +7,14 @@
   </div>
 
   <div class="row mt-1">
-    <table class="table table-hover text-center bg-light">
+    <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th>商品ID</th>
-          <th>商品名</th>
-          <th>税抜き価格</th>
-          <th>ジャンル</th>
-          <th>ステータス</th>
+          <th class="bg-light">商品ID</th>
+          <th class="bg-light">商品名</th>
+          <th class="bg-light">税抜き価格</th>
+          <th class="bg-light">ジャンル</th>
+          <th class="bg-light">ステータス</th>
         </tr>
       </thead>
 
@@ -25,7 +25,12 @@
             <td><%= link_to item.name, admin_item_path(item) %></td>
             <td><%= item.price %></td>
             <td><%= item.genre.name %></td>
-            <td><%= item.is_active %></td>
+            <td><% if item.is_active==0 %>
+         　<P class="">販売中</P>
+         　<% else %>
+         　販売停止中
+　　　　　 <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
